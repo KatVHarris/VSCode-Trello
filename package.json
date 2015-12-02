@@ -1,5 +1,5 @@
 {
-  "name": "Trello Extension",
+  "name": "TrelloVSCodeExtension",
   "displayName": "Trello Extension",
   "description": "Visual Studio Trello Extension",
   "version": "0.0.1",
@@ -29,7 +29,9 @@
   },
   "scripts": {
     "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+    "pretest": "tsc",
+    "test": "mocha --ui tdd ./out"
   },
   "devDependencies": {
     "typescript": "^1.6.2",
