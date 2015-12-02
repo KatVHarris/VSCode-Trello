@@ -1,3 +1,4 @@
+'use strict;'
 import * as vscode from 'vscode';
 
 var Trello = require("node-trello");
@@ -11,7 +12,11 @@ export default class TrelloClient {
 	public _boards : Array<any>;
 	public _boardsIDs : Array<any>;
 	
-	public bID : string; 
+	public _lists : Array<any>;
+	public _listsIDs : Array<any>;
+	
+	private bID : string; 
+	private lID : string; 
 
 	
 	constructor(key?: string, token?: string) {
@@ -22,9 +27,8 @@ export default class TrelloClient {
 	}
 	
 	public getMyBoards(){
-		this._trello.get("/1/members/me/boards", function(err, data) {
+		this._trello.get("/1/members/me/boards", (err, data) => {
   			if (err) throw err;
-  			console.log(data);
 			this._boards = new Array<string>();
 			this._boardsIDs = new Array<string>();
 		  	
@@ -33,38 +37,55 @@ export default class TrelloClient {
 				 this._boardsIDs.push(data[i].id);
 			}
 			
-			vscode.window.showQuickPick(this._boards).then((x) => {
+			vscode.window.showQuickPick(this._boards).then(x => {
 				console.log(x);		
 				//
-				for(var j = 0; j <data.length; j++){
+				for (var j = 0; j <data.length; j++){
 					if(this._boards[j] == x){
-						//getBoardsLists(this._boardsIDs[j]);
 						this.bID = this._boardsIDs[j];
-						console.log(this.bID);
 					}				 
-				}
-				//this.getAllList(this.bID);
-			});
-			
+				};
+				
+				this._getAllLists(this.bID);
+			}, err => {});
 		});
 	}
 	
-	public getAllLists(boardID:  string){
-		this._trello.get("/1/members/me/boards", function(err, data) {
-  			if (err) throw err;
-  			console.log(data);
-
+	private _getAllLists(boardID: string){
+		this._trello.get("/1/boards/"+boardID + "/lists", (err, data) => {
+			if (err) throw err;
+			console.log(data);
+			this._lists = new Array<string>();
+			this._listsIDs = new Array<string>();
+		  	
+			for(var i = 0; i < data.length; i++){
+				 this._lists.push(data[i].name);
+				 this._listsIDs.push(data[i].id);
+				 console.log(data[i].name);
+				 console.log(data[i].id);
+			}
+			
+			vscode.window.showQuickPick(this._lists).then(x => {
+				console.log(x);		
+				//find ID for selected list
+				for (var j = 0; j <data.length; j++){
+					if(this._lists[j] == x){
+						this.lID = this._listsIDs[j];
+						console.log(this.bID);
+					}				 
+				};
+				
+				this._getAllCards(this.lID);
+			}, err => {});
+			  	
 		});
 
 		
 		//vscode.window.showQuickPick();
 	}
+	
+	private _getAllCards(listID: string){
+		console.log("getting all cards")
+	}
 }
 
-function getBoardsLists(boardID: string){
-	this._trello.get("/1/members/me/boards", function(err, data) {
-		if (err) throw err;
-		console.log(data);
-		JSON.parse(data);
-	});
-}
