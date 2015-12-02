@@ -2,10 +2,13 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import TrelloClient from './trello';
+import * as vsInterface from './vscodeInteractions';
 
 var open = require('open');
 
-var trelloClient, token, extensionKey
+var trelloClient : TrelloClient
+var token, extensionKey
+
 
 // TODO: Ensure that the usertoken is stored somewhere - and configured, so that the user
 // doesn't have to do this all the time
@@ -59,5 +62,31 @@ function createClient() {
 }
 
 function getAllBoards() {
-	trelloClient.getMyBoards();
+	//getBoards from TrelloAPI
+	//UPdate the UI with vscodeInteractions
+	//repeat
+	
+	// trelloClient.getMyBoards().then(() => {
+	// 	return vsInterface.ShowBoards(trelloClient._boards, trelloClient._boardsIDs)
+	// }).then(selectedBoard => {
+	// 	return trelloClient.getBoardLists(selectedBoard);
+	// }).then(() => {
+	// 	return vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs)
+	// }).then(selectedList => {	
+	// 	return trelloClient._getAllCards(selectedList);
+	// }).then(() => {
+	// 	return 
+	// })
+	// 	vsInterface.ShowLists(b) }).then(c => {
+	// 		
+	// 	}, err => {
+	// 		
+	// });
+	// 	
+	// });
+	// 
+	// ;
+
+
+	
 }
