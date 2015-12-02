@@ -12,15 +12,16 @@ export default class TrelloClient {
 	public _boards : Array<any>;
 	public _boardsIDs : Array<any>;
 	
-<<<<<<< HEAD
-	private bID : string; 
-=======
 	public _lists : Array<any>;
 	public _listsIDs : Array<any>;
 	
+	private _cards : Array<any>;
+	
 	private bID : string; 
 	private lID : string; 
->>>>>>> getListsForBoards
+	private cID : string; 
+	
+	private currentCard : string; 
 
 	
 	constructor(key?: string, token?: string) {
@@ -48,43 +49,14 @@ export default class TrelloClient {
 					if(this._boards[j] == x){
 						this.bID = this._boardsIDs[j];
 					}				 
-<<<<<<< HEAD
-				}
-				
-				this._getAllLists(this.bID);
-			});
-=======
 				};
 				
 				this._getAllLists(this.bID);
 			}, err => {});
->>>>>>> getListsForBoards
 		});
 	}
 	
 	private _getAllLists(boardID: string){
-<<<<<<< HEAD
-// 		this._trello.get("/1/members/me/boards"+boardID, function(err, data) {
-//   			if (err) throw err;
-//   			console.log(data);
-// 
-// 		});
-// 
-// 		
-// 		//vscode.window.showQuickPick();
-// 	}
-}
-
-// function getBoardsLists(boardID: any, TrelloClient:){
-// 	var bID: string;
-// 	bID = "/1/members/me/boards/" + boardID; 
-// 	_trello.get(bID, function(err, data) {
-// 		if (err) throw err;
-// 		console.log(data);
-// 		//JSON.parse(data);
-// 	});
-// }
-=======
 		this._trello.get("/1/boards/"+boardID + "/lists", (err, data) => {
 			if (err) throw err;
 			console.log(data);
@@ -112,14 +84,25 @@ export default class TrelloClient {
 			}, err => {});
 			  	
 		});
-
-		
-		//vscode.window.showQuickPick();
 	}
 	
 	private _getAllCards(listID: string){
-		console.log("getting all cards")
+		this._trello.get("/1/lists/"+listID + "/cards", (err, data) => {
+			if (err) throw err;
+			console.log(data);
+			this._cards = new Array<string>();
+		  	
+			for(var i = 0; i < data.length; i++){
+				 this._cards.push(data[i].name);
+			}
+			
+			vscode.window.showQuickPick(this._cards).then(x => {	
+				this.currentCard = x; 
+				//currentCard
+				console.log(this.currentCard);	
+			}, err => {});
+			  	
+		});
 	}
 }
 
->>>>>>> getListsForBoards
