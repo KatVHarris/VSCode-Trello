@@ -10,7 +10,7 @@ import * as assert from 'assert';
 // as well as import your extension to test it
 import * as vscode from 'vscode';
 import * as myExtension from '../src/extension';
-import * as trelloClient from '../src/trello';
+import TrelloClient from '../src/trello';
 
 // Defines a Mocha test suite to group tests of similar kind together
 suite("Extension Tests", () => {
@@ -22,6 +22,7 @@ suite("Extension Tests", () => {
 	});
 	
 	test("Trello 1", () => {
-		
+		let trelloClient = new TrelloClient("123","123"); 
+		assert.equal("Hello!", trelloClient.testingT());
 	});
 });
