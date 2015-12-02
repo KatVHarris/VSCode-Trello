@@ -1,0 +1,43 @@
+{
+  "name": "Trello Extension",
+  "displayName": "Trello Extension",
+  "description": "Visual Studio Trello Extension",
+  "version": "0.0.1",
+  "publisher": "Katherine Harris",
+  "engines": {
+    "vscode": "^0.10.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.loginToTrello",
+    "onCommand:extension.getAllBoards"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.loginToTrello",
+        "title": "Trello: Login"
+      },
+      {
+        "command": "extension.getAllBoards",
+        "title": "Trello: Get All Boards"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+  },
+  "devDependencies": {
+    "typescript": "^1.6.2",
+    "vscode": "0.10.x"
+  },
+  "dependencies": {
+    "node-trello": "^1.1.2",
+    "open": "0.0.5",
+    "trello": "^0.5.0"
+  }
+}
