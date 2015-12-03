@@ -90,8 +90,13 @@ export default class TrelloClient {
 		});
 	}
 	
-	public getCurrentCard(){
-		
+	public _moveCurrentCardToList(newListID: string){
+		console.log('Old listID ' + this.currentLID);
+		console.log('New ListID '+ newListID);
+		this._trello.put("/1/cards/" + this.currentCID + "/" + newListID, (err, data) => {
+			 if (err) throw err; 
+			 console.log(data); 
+		 });
 	}
 
 }

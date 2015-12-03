@@ -36,12 +36,21 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	
 	context.subscriptions.push(disposable);
-
+	
+	var test1 = vscode.commands.registerCommand('extension.testc', () => tester());
 	var login = vscode.commands.registerCommand('extension.loginToTrello', () => loginTrelloTest());
 	var getBoards = vscode.commands.registerCommand('extension.getAllBoards', () => getACard());
-
+	var moveCardTL = vscode.commands.registerCommand('extension.mCCTL', () => moveCurCardTL());
+	
+	context.subscriptions.push(test1);
 	context.subscriptions.push(login);
+	context.subscriptions.push(moveCardTL);
 	context.subscriptions.push(getBoards);
+
+}
+
+function tester(){
+	console.log("This is a test");
 }
 
 function loginTrello(){
@@ -54,6 +63,7 @@ function loginTrello(){
 }
 
 function loginTrelloTest(){
+
 	createClient();
 }
 
@@ -69,21 +79,36 @@ function getACard() {
 	trelloClient.getMyBoards().then(() => {
 		return vsInterface.ShowBoards(trelloClient._boards, trelloClient._boardsIDs)
 	}).then(selectedBoard => {
-		console.log("SelectedBoard: " + selectedBoard);
+		trelloClient.currentBID = selectedBoard;
 		return trelloClient.getBoardLists(selectedBoard);
 	}).then(() => {
 		return vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs)
-	}).then(selectedList => {	
+	}).then(selectedList => {
+		trelloClient.currentLID = selectedList; 	
 		return trelloClient._getAllCards(selectedList);
 	}).then(() => {
 		return vsInterface.ShowCards(trelloClient._cards, trelloClient._cardsIDs)
 	}).then(selectedCard => {
+		trelloClient.currentCID = selectedCard;
 		displayCardOnBottom(selectedCard);
 		return (true);
 	}, err => {
 			
 	});
 		
+}
+
+function moveCurCardTL(){
+	//ask user for a listName to move card || show user possible lists
+	//if no current card, show user a error box and ask them to "Trello: Get A Card"
+	vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs).then(
+		selectedList => {
+			//moveCard to the specified List...
+			//get new List ID then 
+			trelloClient._moveCurrentCardToList(selectedList);
+		},err => {
+			
+		});
 }
 
 function displayCardOnBottom(selectedCard: string){

@@ -28,6 +28,8 @@
   },
   "activationEvents": [
     "onCommand:extension.loginToTrello",
+    "onCommand:extension.testc",
+    "onCommand:extension.mCCTL",
     "onCommand:extension.getAllBoards"
   ],
   "main": "./out/src/extension",
@@ -38,8 +40,16 @@
         "title": "Trello: Login"
       },
       {
+        "command": "extension.testc",
+        "title": "Trello: Test"
+      },
+      {
         "command": "extension.getAllBoards",
         "title": "Trello: Get A Card"
+      },
+      {
+        "command": "extension.mCCTL",
+        "title": "Trello: Move Current Card to New List"
       }
     ]
   },
