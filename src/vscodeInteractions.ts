@@ -12,17 +12,20 @@ export var currentCID : string;
 
 var currentCard : string; 
 
+var statusBarItem : vscode.StatusBarItem;
+
 export function ShowBoards(boards: Array<string>, boardsID: Array<string>) : Thenable<string>{
 	return vscode.window.showQuickPick(boards).then(x => {
-		console.log(x);		
+		console.log("ShowBoards: " + x);	
 		//go through name list and get correesponding selected ID
 		for (var j = 0; j <boards.length; j++){
-			if(this.boards[j] == x){
+			if(boards[j] == x){
 				currentBID = boardsID[j];
 			}				 
 		}
+		console.log("ShowBoards - current: " + currentBID);
 		return currentBID; 
-	}, err => {});
+	}, err => console.log(err));
 }
 
 
@@ -31,7 +34,7 @@ export function ShowLists(lists: Array<string>, listsID: Array<string>): Thenabl
 		console.log(x);		
 		//find ID for selected list
 		for (var j = 0; j <lists.length; j++){
-			if(this.lists[j] == x){
+			if(lists[j] == x){
 				currentLID = listsID[j];
 				console.log(currentLID);
 			}				 
@@ -42,18 +45,18 @@ export function ShowLists(lists: Array<string>, listsID: Array<string>): Thenabl
 	}, err => {});
 }
 
-export function ShowCards(cards: Array<string>, cardID: Array<string>) {
+export function ShowCards(cards: Array<string>, cardsID: Array<string>) {
 	return vscode.window.showQuickPick(cards).then(x => {
 		console.log(x);		
 		//find ID for selected list
 		for (var j = 0; j <cards.length; j++){
-			if(this._lists[j] == x){
-				this.lID = this._listsIDs[j];
-				console.log(this.bID);
+			if(cards[j] == x){
+				currentLID = cardsID[j];
 			}				 
-		};
+		}
 		
-		this._getAllCards(this.lID);
+		return currentCID;
 	}, err => {});
-	console.log("getting list is called.");
+
 }
+

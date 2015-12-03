@@ -12,14 +12,14 @@ export default class TrelloClient {
 	public _lists : Array<any>;
 	public _listsIDs : Array<any>;
 	
-	private _cards : Array<any>;
+	public _cards : Array<any>;
 	public _cardsIDs : Array<any>;
 	
 	public currentBID : string; 
 	public currentLID : string; 
 	public currentCID : string; 
 	
-	private currentCard : string; 
+	public currentCard : string; 
 
 	
 	constructor(key?: string, token?: string) {
@@ -56,24 +56,25 @@ export default class TrelloClient {
 	}
 	
 	public getBoardLists(boardID: string){
-		this._trello.get("/1/boards/"+boardID + "/lists", (err, data) => {
+		return new Promise(( resolve, rejcet) =>{
+			this._trello.get("/1/boards/"+boardID + "/lists", (err, data) => {
 			if (err) throw err;
 			console.log(data);
 			this._lists = new Array<string>();
 			this._listsIDs = new Array<string>();
-		  	
+			
 			for(var i = 0; i < data.length; i++){
-				 this._lists.push(data[i].name);
-				 this._listsIDs.push(data[i].id);
-				 console.log(data[i].name);
-				 console.log(data[i].id);
+				this._lists.push(data[i].name);
+				this._listsIDs.push(data[i].id);
 			}
-						  	
+			resolve(true);			
+			});
 		});
 	}
 	// 
 	public _getAllCards(listID: string){
-		this._trello.get("/1/lists/"+listID + "/cards", (err, data) => {
+		return new Promise((resolve, reject) => {
+			this._trello.get("/1/lists/"+listID + "/cards", (err, data) => {
 			if (err) throw err;
 			console.log(data);
 			this._cards = new Array<string>();
@@ -81,15 +82,14 @@ export default class TrelloClient {
 			for(var i = 0; i < data.length; i++){
 				 this._cards.push(data[i].name);
 			}
-			
-		// 	vscode.window.showQuickPick(this._cards).then(x => {	
-		// 		this.currentCard = x; 
-		// 		//currentCard
-		// 		console.log(this.currentCard);	
-		// 	}, err => {});
-		// 	  	
-		// });
+			resolve(true);
 		});
+		
+		});
+	}
+	
+	public getCurrentCard(){
+		
 	}
 
 }

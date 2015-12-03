@@ -66,19 +66,26 @@ function getAllBoards() {
 	//UPdate the UI with vscodeInteractions
 	//repeat
 	
-	// trelloClient.getMyBoards().then(() => {
-	// 	return vsInterface.ShowBoards(trelloClient._boards, trelloClient._boardsIDs)
-	// }).then(selectedBoard => {
-	// 	return trelloClient.getBoardLists(selectedBoard);
-	// }).then(() => {
-	// 	return vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs)
-	// }).then(selectedList => {	
-	// 	return trelloClient._getAllCards(selectedList);
-	// }).then(() => {
-	// 	return vsInterface.ShowCards(trelloClient._cards, trelloClient.cardsIDs)
-	// }, err => {
-	// 		
-	// });
+	trelloClient.getMyBoards().then(() => {
+		return vsInterface.ShowBoards(trelloClient._boards, trelloClient._boardsIDs)
+	}).then(selectedBoard => {
+		console.log("SelectedBoard: " + selectedBoard);
+		return trelloClient.getBoardLists(selectedBoard);
+	}).then(() => {
+		return vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs)
+	}).then(selectedList => {	
+		return trelloClient._getAllCards(selectedList);
+	}).then(() => {
+		return vsInterface.ShowCards(trelloClient._cards, trelloClient._cardsIDs)
+	}).then(selectedCard => {
+		return displayCardOnBottom(selectedCard);
+	}, err => {
+			
+	});
 		
+}
+
+function displayCardOnBottom(selectedCard: string){
+	console.log("idk my bff jill");
 }
 
