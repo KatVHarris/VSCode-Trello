@@ -47,16 +47,25 @@ export function ShowLists(lists: Array<string>, listsID: Array<string>): Thenabl
 
 export function ShowCards(cards: Array<string>, cardsID: Array<string>) {
 	return vscode.window.showQuickPick(cards).then(x => {
-		console.log(x);		
+		console.log("console display:" + x);	
+		currentCard = x;	
 		//find ID for selected list
 		for (var j = 0; j <cards.length; j++){
 			if(cards[j] == x){
-				currentLID = cardsID[j];
+				currentCID = cardsID[j];
 			}				 
 		}
 		
-		return currentCID;
+		return currentCard;
 	}, err => {});
 
 }
 
+export function AddCardToBar(cardname: string): void{
+	if(!statusBarItem){
+		statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+	}
+	statusBarItem.text = (cardname) ? '-- '+ cardname + ' --': '';
+	statusBarItem.show();
+	//createStatusBarItem(alignment?: StatusBarAlignment, priority?: number): StatusBarItem
+}

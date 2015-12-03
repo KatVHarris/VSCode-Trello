@@ -39,7 +39,7 @@
       },
       {
         "command": "extension.getAllBoards",
-        "title": "Trello: Get All Boards"
+        "title": "Trello: Get A Card"
       }
     ]
   },

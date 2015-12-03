@@ -78,9 +78,11 @@ export default class TrelloClient {
 			if (err) throw err;
 			console.log(data);
 			this._cards = new Array<string>();
+			this._cardsIDs = new Array<string>();
 		  	
 			for(var i = 0; i < data.length; i++){
 				 this._cards.push(data[i].name);
+				 this._cardsIDs.push(data[i].id);
 			}
 			resolve(true);
 		});

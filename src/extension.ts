@@ -38,7 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable);
 
 	var login = vscode.commands.registerCommand('extension.loginToTrello', () => loginTrelloTest());
-	var getBoards = vscode.commands.registerCommand('extension.getAllBoards', () => getAllBoards());
+	var getBoards = vscode.commands.registerCommand('extension.getAllBoards', () => getACard());
 
 	context.subscriptions.push(login);
 	context.subscriptions.push(getBoards);
@@ -61,7 +61,7 @@ function createClient() {
 	trelloClient = trelloClient || new TrelloClient(appKey, userToken);
 }
 
-function getAllBoards() {
+function getACard() {
 	//getBoards from TrelloAPI
 	//UPdate the UI with vscodeInteractions
 	//repeat
@@ -78,7 +78,8 @@ function getAllBoards() {
 	}).then(() => {
 		return vsInterface.ShowCards(trelloClient._cards, trelloClient._cardsIDs)
 	}).then(selectedCard => {
-		return displayCardOnBottom(selectedCard);
+		displayCardOnBottom(selectedCard);
+		return (true);
 	}, err => {
 			
 	});
@@ -86,6 +87,6 @@ function getAllBoards() {
 }
 
 function displayCardOnBottom(selectedCard: string){
-	console.log("idk my bff jill");
+	vsInterface.AddCardToBar(selectedCard); 
 }
 
