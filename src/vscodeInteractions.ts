@@ -69,3 +69,18 @@ export function AddCardToBar(cardname: string): void{
 	statusBarItem.show();
 	//createStatusBarItem(alignment?: StatusBarAlignment, priority?: number): StatusBarItem
 }
+
+export function InsertUserToken(){
+	return vscode.window.showInputBox().then(x => {
+		if(!x){
+			return vscode.window.showErrorMessage("need to paste your token in");
+		}
+		else{
+			return x; 
+		}
+	}, err => {});
+}
+
+export function ShowError(errMessage: string){
+	vscode.window.showErrorMessage(errMessage);
+}

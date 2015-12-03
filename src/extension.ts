@@ -13,7 +13,7 @@ var token, extensionKey
 // TODO: Ensure that the usertoken is stored somewhere - and configured, so that the user
 // doesn't have to do this all the time
 const appKey = '03e153ce92addad232ddc24891e07c60';
-const userToken = '26aeb9d035ad5c360ce55d7d9a56ce84420efff576d1105e4e641e2650ed6855';
+var _userToken = ''; 
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -37,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	context.subscriptions.push(disposable);
 
-	var login = vscode.commands.registerCommand('extension.loginToTrello', () => loginTrelloTest());
+	var login = vscode.commands.registerCommand('extension.loginToTrello', () => loginTrello());
 	var getBoards = vscode.commands.registerCommand('extension.getAllBoards', () => getACard());
 
 	context.subscriptions.push(login);
@@ -58,31 +58,38 @@ function loginTrelloTest(){
 }
 
 function createClient() {
-	trelloClient = trelloClient || new TrelloClient(appKey, userToken);
+	vsInterface.InsertUserToken().then(userToken => {
+		console.log(userToken);
+		_userToken = _userToken;
+		trelloClient = trelloClient || new TrelloClient(appKey, userToken);
+	});
 }
 
 function getACard() {
 	//getBoards from TrelloAPI
 	//UPdate the UI with vscodeInteractions
 	//repeat
-	
-	trelloClient.getMyBoards().then(() => {
-		return vsInterface.ShowBoards(trelloClient._boards, trelloClient._boardsIDs)
-	}).then(selectedBoard => {
-		console.log("SelectedBoard: " + selectedBoard);
-		return trelloClient.getBoardLists(selectedBoard);
-	}).then(() => {
-		return vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs)
-	}).then(selectedList => {	
-		return trelloClient._getAllCards(selectedList);
-	}).then(() => {
-		return vsInterface.ShowCards(trelloClient._cards, trelloClient._cardsIDs)
-	}).then(selectedCard => {
-		displayCardOnBottom(selectedCard);
-		return (true);
-	}, err => {
-			
-	});
+	if(!_userToken){
+		vsInterface.ShowError("You are not LoggedIn. Use 'Trello: Login' command to Login.");
+	}else{
+		trelloClient.getMyBoards().then(() => {
+			return vsInterface.ShowBoards(trelloClient._boards, trelloClient._boardsIDs)
+		}).then(selectedBoard => {
+			console.log("SelectedBoard: " + selectedBoard);
+			return trelloClient.getBoardLists(selectedBoard);
+		}).then(() => {
+			return vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs)
+		}).then(selectedList => {	
+			return trelloClient._getAllCards(selectedList);
+		}).then(() => {
+			return vsInterface.ShowCards(trelloClient._cards, trelloClient._cardsIDs)
+		}).then(selectedCard => {
+			displayCardOnBottom(selectedCard);
+			return (true);
+		}, err => {
+				
+		});
+	}
 		
 }
 
