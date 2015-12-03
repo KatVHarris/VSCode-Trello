@@ -13,6 +13,7 @@ export default class TrelloClient {
 	public _listsIDs : Array<any>;
 	
 	private _cards : Array<any>;
+	public _cardsIDs : Array<any>;
 	
 	public currentBID : string; 
 	public currentLID : string; 

@@ -1,15 +1,31 @@
 {
   "name": "TrelloVSCodeExtension",
-  "displayName": "Trello Extension",
-  "description": "Visual Studio Trello Extension",
+  "displayName": "Trello VSCode Extension",
+  "description": "Connect to Trello and access your boards, lists, and cards, to manipulate cards.",
   "version": "0.0.1",
-  "publisher": "Katherine Harris",
+  "publisher": "KatVHarris",
   "engines": {
     "vscode": "^0.10.1"
   },
+  "license": "MIT",
+  "homepage" : "",
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "Trello",
+    "Tracking",
+    "Project Organization"
+  ],
+  "icon": "MyTrelloDog.png",
+  "galleryBanner": {
+    "color": "#A1A0A0",
+    "theme": "light"
+  },
+  "bugs": {
+    "url":"https://github.com/katvharris/vscode-trello",
+    "email": ""
+  },
   "activationEvents": [
     "onCommand:extension.loginToTrello",
     "onCommand:extension.getAllBoards"

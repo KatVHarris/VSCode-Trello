@@ -75,18 +75,10 @@ function getAllBoards() {
 	// }).then(selectedList => {	
 	// 	return trelloClient._getAllCards(selectedList);
 	// }).then(() => {
-	// 	return 
-	// })
-	// 	vsInterface.ShowLists(b) }).then(c => {
-	// 		
-	// 	}, err => {
+	// 	return vsInterface.ShowCards(trelloClient._cards, trelloClient.cardsIDs)
+	// }, err => {
 	// 		
 	// });
-	// 	
-	// });
-	// 
-	// ;
-
-
-	
+		
 }
+
