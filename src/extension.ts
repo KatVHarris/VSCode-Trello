@@ -60,7 +60,7 @@ function loginTrelloTest(){
 function createClient() {
 	vsInterface.InsertUserToken().then(userToken => {
 		console.log(userToken);
-		_userToken = _userToken;
+		_userToken = userToken;
 		trelloClient = trelloClient || new TrelloClient(appKey, userToken);
 	});
 }
