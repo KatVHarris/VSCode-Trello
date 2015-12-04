@@ -8,7 +8,7 @@
     "vscode": "^0.10.1"
   },
   "license": "MIT",
-  "homepage" : "",
+  "homepage" : "https://github.com/KatVHarris/VSCode-Trello/blob/master/README.md",
   "categories": [
     "Other"
   ],
@@ -23,7 +23,7 @@
     "theme": "light"
   },
   "bugs": {
-    "url":"https://github.com/KatVHarris/VSCode-Trello",
+    "url":"https://github.com/katvharris/vscode-trello/issues",
     "email": ""
   },
   "activationEvents": [
