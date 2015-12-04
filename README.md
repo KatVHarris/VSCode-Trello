@@ -15,15 +15,15 @@ Extension for Trello and VSCode
 To make this Trello Client work you first need to get your Client Token and add it to the trello.ts file. 
 Then you must authorize the extension on Trellos side. I am currently trying to automate this so it's easier for the user to get authorize their token. 
 
-![Command Box](https://github.com/KatVHarris/VSCode-Trello/blob/master/trellocommandbox.png)
+![Command Box](https://raw.githubusercontent.com/KatVHarris/VSCode-Trello/master/trellocommandbox.png)
 
-![Login](https://github.com/KatVHarris/VSCode-Trello/blob/master/trellologinsite.png)
+![Login](https://raw.githubusercontent.com/KatVHarris/VSCode-Trello/master/trellologinsite.png)
 
 #### Step 2: Copy User Token and Paste into InputBox
 
-![Login Token](https://github.com/KatVHarris/VSCode-Trello/blob/master/trellologinsitetoken.png)
+![Login Token](https://raw.githubusercontent.com/KatVHarris/VSCode-Trello/master/trellologinsitetoken.png)
 
-![Paste Login](https://github.com/KatVHarris/VSCode-Trello/blob/master/trellopastelogin.png)
+![Paste Login](https://raw.githubusercontent.com/KatVHarris/VSCode-Trello/master/trellopastelogin.png)
 
 Press 'Enter'
 
