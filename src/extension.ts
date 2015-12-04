@@ -34,13 +34,15 @@ export function activate(context: vscode.ExtensionContext) {
 		
 	});
 	
+
 	
-	context.subscriptions.push(disposable);
 	var login = vscode.commands.registerCommand('extension.loginToTrello', () => loginTrello());
 	var getBoards = vscode.commands.registerCommand('extension.getAllBoards', () => getACard());
-	var moveCardTL = vscode.commands.registerCommand('extension.mCCTL', () => moveCurCardTL());
+	var moveCardTL = vscode.commands.registerCommand('extension.mCCTNL', () => moveCurCardTL());
 	
-	context.subscriptions.push(test1);
+	
+	context.subscriptions.push(disposable);
+	
 	context.subscriptions.push(login);
 	context.subscriptions.push(moveCardTL);
 	context.subscriptions.push(getBoards);
