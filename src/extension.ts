@@ -36,13 +36,17 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	
 	context.subscriptions.push(disposable);
-
 	var login = vscode.commands.registerCommand('extension.loginToTrello', () => loginTrello());
 	var getBoards = vscode.commands.registerCommand('extension.getAllBoards', () => getACard());
-
+	var moveCardTL = vscode.commands.registerCommand('extension.mCCTL', () => moveCurCardTL());
+	
+	context.subscriptions.push(test1);
 	context.subscriptions.push(login);
+	context.subscriptions.push(moveCardTL);
 	context.subscriptions.push(getBoards);
+
 }
+
 
 function loginTrello(){
 	//need to authenticate user
@@ -54,6 +58,7 @@ function loginTrello(){
 }
 
 function loginTrelloTest(){
+
 	createClient();
 }
 
@@ -90,7 +95,21 @@ function getACard() {
 				
 		});
 	}
+
 		
+}
+
+function moveCurCardTL(){
+	//ask user for a listName to move card || show user possible lists
+	//if no current card, show user a error box and ask them to "Trello: Get A Card"
+	vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs).then(
+		selectedList => {
+			//moveCard to the specified List...
+			//get new List ID then 
+			trelloClient._moveCurrentCardToList(selectedList);
+		},err => {
+			
+		});
 }
 
 function displayCardOnBottom(selectedCard: string){
