@@ -2,7 +2,7 @@
   "name": "TrelloVSCodeExtension",
   "displayName": "Trello VSCode Extension",
   "description": "Connect to Trello and access your boards, lists, and cards, to manipulate cards.",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "publisher": "katvharris",
   "engines": {
     "vscode": "^0.10.1"
@@ -23,7 +23,7 @@
     "theme": "light"
   },
   "bugs": {
-    "url":"https://github.com/katvharris/vscode-trello",
+    "url":"https://github.com/KatVHarris/VSCode-Trello",
     "email": ""
   },
   "activationEvents": [
