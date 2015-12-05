@@ -90,10 +90,20 @@ export default class TrelloClient {
 		});
 	}
 	
+	public _setCurCardID(currentCardName: string){
+		for (var i = 0; i < this._cards.length; i++){
+			if(currentCardName == this._cards[i]){
+				var cid = this._cardsIDs[i];
+			}
+		}
+		this.currentCID = cid; 
+
+	}
+	
 	public _moveCurrentCardToList(newListID: string){
-		console.log('Old listID ' + this.currentLID);
-		console.log('New ListID '+ newListID);
 		this._trello.put("/1/cards/" + this.currentCID + "/" + newListID, (err, data) => {
+			console.log("currentID "+ this.currentCID + "new list ID "+ newListID);
+			console.log(err);
 			 if (err) throw err; 
 			 console.log(data); 
 		 });

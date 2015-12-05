@@ -7,7 +7,7 @@ import * as vsInterface from './vscodeInteractions';
 var open = require('open');
 
 var trelloClient : TrelloClient
-var token, extensionKey
+var token, extensionKey, currentBID, currentCID, currentLID
 
 
 // TODO: Ensure that the usertoken is stored somewhere - and configured, so that the user
@@ -82,15 +82,17 @@ function getACard() {
 		trelloClient.getMyBoards().then(() => {
 			return vsInterface.ShowBoards(trelloClient._boards, trelloClient._boardsIDs)
 		}).then(selectedBoard => {
-			console.log("SelectedBoard: " + selectedBoard);
+			currentBID; 
 			return trelloClient.getBoardLists(selectedBoard);
 		}).then(() => {
 			return vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs)
 		}).then(selectedList => {	
+			currentLID;
 			return trelloClient._getAllCards(selectedList);
 		}).then(() => {
 			return vsInterface.ShowCards(trelloClient._cards, trelloClient._cardsIDs)
 		}).then(selectedCard => {
+			trelloClient._setCurCardID(selectedCard);
 			displayCardOnBottom(selectedCard);
 			return (true);
 		}, err => {

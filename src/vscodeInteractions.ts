@@ -55,8 +55,8 @@ export function ShowCards(cards: Array<string>, cardsID: Array<string>) {
 				currentCID = cardsID[j];
 			}				 
 		}
-		
-		return currentCard;
+		console.log(currentCID);
+		return x;
 	}, err => {});
 
 }
