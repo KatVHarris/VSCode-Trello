@@ -29,7 +29,8 @@
   "activationEvents": [
     "onCommand:extension.loginToTrello",
     "onCommand:extension.mCCTNL",
-    "onCommand:extension.getAllBoards"
+    "onCommand:extension.getAllBoards",
+    "onCommand:extension.closeCard"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -45,6 +46,10 @@
       {
         "command": "extension.getAllBoards",
         "title": "Trello: Get A Card"
+      },
+      {
+        "command": "extension.closeCard",
+        "title" : "Trello: Close Current Card"
       }
     ]
   },

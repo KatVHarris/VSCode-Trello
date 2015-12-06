@@ -39,6 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
 	var login = vscode.commands.registerCommand('extension.loginToTrello', () => loginTrello());
 	var getBoards = vscode.commands.registerCommand('extension.getAllBoards', () => getACard());
 	var moveCardTL = vscode.commands.registerCommand('extension.mCCTNL', () => moveCurCardTL());
+	var closeCurCard = vscode.commands.registerCommand('extension.closeCard', () => closeCurrentCard());
 	
 	
 	context.subscriptions.push(disposable);
@@ -46,6 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(login);
 	context.subscriptions.push(moveCardTL);
 	context.subscriptions.push(getBoards);
+	context.subscriptions.push(closeCurCard);
 
 }
 
@@ -99,7 +101,7 @@ function getACard() {
 			return vsInterface.ShowCards(trelloClient._cards, trelloClient._cardsIDs)
 		}).then(selectedCard => {
 			trelloClient._setCurCardID(selectedCard);
-			displayCardOnBottom(selectedCard);
+			displayOnBottom(selectedCard);
 			return (true);
 		}, err => {
 				
@@ -110,19 +112,33 @@ function getACard() {
 }
 
 function moveCurCardTL(){
-	//ask user for a listName to move card || show user possible lists
-	//if no current card, show user a error box and ask them to "Trello: Get A Card"
-	vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs).then(
-		selectedList => {
-			//moveCard to the specified List...
-			//get new List ID then 
-			trelloClient._moveCurrentCardToList(selectedList);
-		},err => {
-			
-		});
+	if(!trelloClient.currentCID){
+		vsInterface.ShowError("You need to get a card before you try to move one.");
+	}
+	else{
+		//ask user for a listName to move card || show user possible lists
+		//if no current card, show user a error box and ask them to "Trello: Get A Card"
+		vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs).then(
+			selectedList => {
+				//moveCard to the specified List...
+				//get new List ID then 
+				trelloClient._moveCurrentCardToList(selectedList);
+			},err => {
+				
+			});
+	}
 }
 
-function displayCardOnBottom(selectedCard: string){
-	vsInterface.AddCardToBar(selectedCard); 
+function closeCurrentCard(){
+	if(!trelloClient.currentCID){
+		vsInterface.ShowError("You need to get a card to work on.");
+	}else{
+		trelloClient._closeCard();
+	}
+
+}
+
+function displayOnBottom(displayString: string){
+	vsInterface.AddCardToBar(displayString); 
 }
 

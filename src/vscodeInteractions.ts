@@ -84,3 +84,7 @@ export function InsertUserToken(){
 export function ShowError(errMessage: string){
 	vscode.window.showErrorMessage(errMessage);
 }
+
+export function ShowMessage(infoMessage: string){
+	vscode.window.showInformationMessage(infoMessage);
+}

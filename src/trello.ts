@@ -110,5 +110,15 @@ export default class TrelloClient {
 			 console.log(data); 
 		 });
 	}
+	
+	public _closeCard(){
+		var putstring = "/1/cards/" + this.currentCID + "/" ;
+
+		this._trello.put(putstring, { closed: true },  (err, data) => {
+			console.log(err);
+			 if (err) throw err; 
+			 console.log(data); 
+		 });
+	}
 
 }
