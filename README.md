@@ -8,14 +8,15 @@ Extension for Trello and VSCode
 
 2) Trello: Get A Card - Allows Users to select a board from their boards, then a particular list from the board they selected, and then a specific Card to work on
 
-3) Trello: Move Card to a New List - Moves the current card the user has to a new list in the Current Board 
+3) Trello: Move Card to a New List - Moves the current card the user has to a new list in the Current Board
+
+4) Trello: Close Current Card - Closes the current card the user is working with 
 
 Scheduled Commands:
-1) Trello: Close Card
 
-2) Trello: Add Myself
+1) Trello: Add Myself to Card
 
-3) Trello: Add Label
+2) Trello: Add Label to Card
 
 
 ### Login
