@@ -101,8 +101,10 @@ export default class TrelloClient {
 	}
 	
 	public _moveCurrentCardToList(newListID: string){
-		this._trello.put("/1/cards/" + this.currentCID + "/" + newListID, (err, data) => {
-			console.log("currentID "+ this.currentCID + "new list ID "+ newListID);
+		var putstring = "/1/cards/" + this.currentCID + "/" ;
+
+		this._trello.put(putstring, { idList: newListID },  (err, data) => {
+			console.log("currentID "+ this.currentCID + " new list ID "+ newListID);
 			console.log(err);
 			 if (err) throw err; 
 			 console.log(data); 

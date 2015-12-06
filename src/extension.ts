@@ -72,6 +72,12 @@ function createClient() {
 	});
 }
 
+function getACardTest(){
+	_userToken = '';
+	trelloClient = trelloClient || new TrelloClient(appKey, '');
+	getACard();
+}
+
 function getACard() {
 	//getBoards from TrelloAPI
 	//UPdate the UI with vscodeInteractions
