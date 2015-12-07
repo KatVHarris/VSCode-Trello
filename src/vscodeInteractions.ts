@@ -11,12 +11,14 @@ export var currentLID : string;
 export var currentCID : string; 
 
 var currentCard : string; 
-
+var currentList : string;
+var currentBoard : string; 
 var statusBarItem : vscode.StatusBarItem;
 
 export function ShowBoards(boards: Array<string>, boardsID: Array<string>) : Thenable<string>{
 	return vscode.window.showQuickPick(boards).then(x => {
-		console.log("ShowBoards: " + x);	
+		console.log("ShowBoards: " + x);
+		currentBoard = x;	
 		//go through name list and get correesponding selected ID
 		for (var j = 0; j <boards.length; j++){
 			if(boards[j] == x){
@@ -31,7 +33,7 @@ export function ShowBoards(boards: Array<string>, boardsID: Array<string>) : The
 
 export function ShowLists(lists: Array<string>, listsID: Array<string>): Thenable<string> {
 	return vscode.window.showQuickPick(lists).then(x => {
-		console.log(x);		
+		currentList = x; 	
 		//find ID for selected list
 		for (var j = 0; j <lists.length; j++){
 			if(lists[j] == x){
@@ -61,13 +63,25 @@ export function ShowCards(cards: Array<string>, cardsID: Array<string>) {
 
 }
 
-export function AddCardToBar(cardname: string): void{
+export function AddToBar(message?:string, boardname?:string , listname?: string, cardname?: string, iconname?: string): void{
 	if(!statusBarItem){
 		statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
 	}
-	statusBarItem.text = (cardname) ? '-- '+ cardname + ' --': '';
+	console.log("printing current cardname "+ cardname);
+	console.log("printing current list" + currentList);
+	console.log("printing current board " + currentBoard);
+	statusBarItem.text = (cardname) ? 
+			iconname + " " + message + " " + currentBoard + " $(chevron-right)" + 
+			currentList + " $(chevron-right)" + cardname: iconname + " " + message;
 	statusBarItem.show();
 	//createStatusBarItem(alignment?: StatusBarAlignment, priority?: number): StatusBarItem
+}
+
+export function AddStatusIcon(iconName: string){
+	if(!statusBarItem){
+		statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+	}
+	
 }
 
 export function InsertUserToken(){

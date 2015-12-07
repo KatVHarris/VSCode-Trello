@@ -71,6 +71,7 @@ function createClient() {
 		console.log(userToken);
 		_userToken = userToken;
 		trelloClient = trelloClient || new TrelloClient(appKey, userToken);
+		displayLoggedIn('Logged-in');
 	});
 }
 
@@ -90,18 +91,18 @@ function getACard() {
 		trelloClient.getMyBoards().then(() => {
 			return vsInterface.ShowBoards(trelloClient._boards, trelloClient._boardsIDs)
 		}).then(selectedBoard => {
-			currentBID; 
+			currentBID = selectedBoard; 
 			return trelloClient.getBoardLists(selectedBoard);
 		}).then(() => {
 			return vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs)
 		}).then(selectedList => {	
-			currentLID;
+			currentLID = selectedList;
 			return trelloClient._getAllCards(selectedList);
 		}).then(() => {
 			return vsInterface.ShowCards(trelloClient._cards, trelloClient._cardsIDs)
 		}).then(selectedCard => {
 			trelloClient._setCurCardID(selectedCard);
-			displayOnBottom(selectedCard);
+			displayCardOnBottom(selectedCard);
 			return (true);
 		}, err => {
 				
@@ -123,6 +124,7 @@ function moveCurCardTL(){
 				//moveCard to the specified List...
 				//get new List ID then 
 				trelloClient._moveCurrentCardToList(selectedList);
+				displayCardOnBottom(trelloClient.currentCard);
 			},err => {
 				
 			});
@@ -138,7 +140,11 @@ function closeCurrentCard(){
 
 }
 
-function displayOnBottom(displayString: string){
-	vsInterface.AddCardToBar(displayString); 
+function displayCardOnBottom(displayString: string){
+	vsInterface.AddToBar('', '', '', displayString, '$(file-text)' ); 
+}
+
+function displayLoggedIn(loggedIn: string){
+	vsInterface.AddToBar(loggedIn, '', '', '', '$(person)');
 }
 

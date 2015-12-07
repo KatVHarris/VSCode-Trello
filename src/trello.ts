@@ -91,6 +91,7 @@ export default class TrelloClient {
 	}
 	
 	public _setCurCardID(currentCardName: string){
+		this.currentCard = currentCardName; 
 		for (var i = 0; i < this._cards.length; i++){
 			if(currentCardName == this._cards[i]){
 				var cid = this._cardsIDs[i];
