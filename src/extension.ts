@@ -113,7 +113,7 @@ function getACard() {
 }
 
 function moveCurCardTL(){
-	if(!(trelloClient || trelloClient.currentCID){
+	if(!(trelloClient || trelloClient.currentCID)){
 		vsInterface.ShowError("You need to get a card before you try to move one.");
 	}
 	else{
