@@ -25,4 +25,5 @@ suite("Extension Tests", () => {
 		let trelloClient = new TrelloClient("123","123"); 
 		assert.equal("Hello!", trelloClient.testingT());
 	});
+	
 });
