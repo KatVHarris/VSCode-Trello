@@ -71,7 +71,7 @@ function createClient() {
 		console.log(userToken);
 		_userToken = userToken;
 		trelloClient = trelloClient || new TrelloClient(appKey, userToken);
-		displayLoggedIn('Logged-in');
+		displayLoggedIn('Trello logged in');
 	});
 }
 

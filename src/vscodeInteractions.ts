@@ -85,7 +85,7 @@ export function AddStatusIcon(iconName: string){
 }
 
 export function InsertUserToken(){
-	return vscode.window.showInputBox().then(x => {
+	return vscode.window.showInputBox("Please paste in your user token, then hit 'Enter'.").then(x => {
 		if(!x){
 			return vscode.window.showErrorMessage("need to paste your token in");
 		}
