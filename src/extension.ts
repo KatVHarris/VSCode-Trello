@@ -13,15 +13,15 @@ var token, extensionKey, currentBID, currentCID, currentLID
 // TODO: Ensure that the usertoken is stored somewhere - and configured, so that the user
 // doesn't have to do this all the time
 const appKey = '03e153ce92addad232ddc24891e07c60';
-var _userToken = ''; 
+var _userToken = '';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	
+
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "txc" is now active!'); 
+	console.log('Congratulations, your extension "txc" is now active!');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
@@ -31,19 +31,19 @@ export function activate(context: vscode.ExtensionContext) {
 
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World!');
-		
-	});
-	
 
-	
+	});
+
+
+
 	var login = vscode.commands.registerCommand('extension.loginToTrello', () => loginTrello());
 	var getBoards = vscode.commands.registerCommand('extension.getAllBoards', () => getACard());
 	var moveCardTL = vscode.commands.registerCommand('extension.mCCTNL', () => moveCurCardTL());
 	var closeCurCard = vscode.commands.registerCommand('extension.closeCard', () => closeCurrentCard());
-	
-	
+
+
 	context.subscriptions.push(disposable);
-	
+
 	context.subscriptions.push(login);
 	context.subscriptions.push(moveCardTL);
 	context.subscriptions.push(getBoards);
@@ -91,11 +91,11 @@ function getACard() {
 		trelloClient.getMyBoards().then(() => {
 			return vsInterface.ShowBoards(trelloClient._boards, trelloClient._boardsIDs)
 		}).then(selectedBoard => {
-			currentBID = selectedBoard; 
+			currentBID = selectedBoard;
 			return trelloClient.getBoardLists(selectedBoard);
 		}).then(() => {
 			return vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs)
-		}).then(selectedList => {	
+		}).then(selectedList => {
 			currentLID = selectedList;
 			return trelloClient._getAllCards(selectedList);
 		}).then(() => {
@@ -105,11 +105,11 @@ function getACard() {
 			displayCardOnBottom(selectedCard);
 			return (true);
 		}, err => {
-				
+
 		});
 	}
 
-		
+
 }
 
 function moveCurCardTL(){
@@ -122,11 +122,11 @@ function moveCurCardTL(){
 		vsInterface.ShowLists(trelloClient._lists, trelloClient._listsIDs).then(
 			selectedList => {
 				//moveCard to the specified List...
-				//get new List ID then 
+				//get new List ID then
 				trelloClient._moveCurrentCardToList(selectedList);
 				displayCardOnBottom(trelloClient.currentCard);
 			},err => {
-				
+
 			});
 	}
 }
@@ -142,7 +142,7 @@ function closeCurrentCard(){
 }
 
 function displayCardOnBottom(displayString: string){
-	vsInterface.AddToBar('', '', '', displayString, '$(file-text)' ); 
+	vsInterface.AddToBar('', '', '', displayString, '$(file-text)' );
 }
 
 function displayLoggedIn(loggedIn: string){
